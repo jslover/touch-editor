@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html />
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>PowerDoc</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, minimum-scale=1, user-scalable=no,target-densitydpi=medium-dpi">
+    <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+    <script src="script/editor.js" type="text/javascript"></script>
+    <link href="style/style.css" rel="stylesheet" type="text/css" />
+   
+</head>
+<body>
+    <div data-role="page" data-fullscreen="true" id="">
+        <h1>
+            手机上的文本编辑器
+        </h1>
+        <div id="contenter" style="background: #fff; padding: 10px; border: 1px solid red;">
+            <p>
+                <strong style="font-size: 30px; color: red; font-family: 幼圆;">文本编辑器DEMO1</strong></p>
+            <p>
+                <strong>【医护补助】</strong></p>
+            <p>
+                <strong>家人应帮助就诊看护管理</strong></p>
+            <p style="font-family: 楷体;">
+                今年8月，精神卫生法草案二次审议后，全国人大法律委员会、法制工作委员会曾到北京、湖南、吉林调研。</p>
+            <p>
+                新京报记者 王姝</p>
+            <p align="right">
+                (原标题：综合性医疗机构应设精神科门诊)</p>
+        </div>
+        <br />
+        <div id="contenterDemo2" style="background: #fff; padding: 10px; maring-top: 20px;
+            border: 1px solid red;">
+            <p>
+                <strong style="font-size: 30px; color: red; font-family: 幼圆;">文本编辑器DEMO2</strong></p>
+            <p>
+                <span>谁有权力把人送到</span><span class="style1"><strong>精神病院</strong></span><span>？</span><em>谁有资格判定</em><span
+                    class="style3">一个人是</span><span>不是精神病患者？</span></p>
+            <p>
+                <span>对于“强行收治”、“</span><span class="style2">非自愿入院</span><span style="color: blue;">”等争议多年的焦点议题，三审稿保留了一审稿</span></p>
+            <p>
+                <span>对于精神障碍的复诊鉴定，</span><span class="style4" style="font-family: 幼圆; font-size: 24px;">草案一审稿曾规定</span><span>，患者、监护人如果对复诊结论有异议</span></p>
+        </div>
+        <script>
+            $(document).ready(function () {
+                var editor = new $.TouchEditor({ contentorSelector: '#contenter' });
+                var editor2 = new $.TouchEditor({ contentorSelector: '#contenterDemo2' });
+            });
+        </script>
+    </div>
+</body>
+</html>
