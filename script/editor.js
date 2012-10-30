@@ -5,7 +5,7 @@
 * @version 1.0  2012.10.26
 */
 (function ($) {
-    var touchEvent = 'touchend' in document?'touchend':'click';
+    var touchEvent = 'ontouchend' in document?'touchend':'click';
     //构造函数
     var TouchEditor = function (opts) {
         var _this = this;
