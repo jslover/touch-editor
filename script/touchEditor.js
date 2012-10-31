@@ -1,8 +1,9 @@
 ﻿﻿/**
 * @Class
 * @description 手机文本编辑器，支持多实例，所见即所得，兼容手机、PC浏览器
-* @author yh
+* @author http://jslover.com
 * @version 1.0  2012.10.26
+* @version 1.1  2012.10.31 1、换行等处理 2、表格的展示 3、预设文本样式
 */
 (function ($) {
     var touchEvent = 'ontouchend' in document?'touchend':'click';
@@ -23,6 +24,7 @@
             ,$menuFont:null
             ,$menuColor:null
             ,$menuFontSize:null
+            ,$menuStyle:null
         };
         //当前编辑的段落
         _this.currP = null;
@@ -34,6 +36,8 @@
             ,'text-decoration':''
             ,'font-style':''//normal|italic|oblique
             ,'color':''
+            ,'line-height':'1.5'
+            ,'text-align':''
         };
         //编辑器关闭
         _this.isClose = true;
@@ -81,7 +85,7 @@
                     _this.currStyle['font-weight'] = _this.currStyle['font-weight']>400?'bold':'normal';
                 }
                  //文本赋值
-                _this.pan.$textarea.val($.trim(_this.$currP.html())).css('height',_this.currStyle['font-size']||14);
+                _this.pan.$textarea.val($.trim(_this.$currP.html())).css('height',_this.currStyle['font-size']||14).css('line-height',_this.currStyle['line-height']||'1.5');
                 setTimeout(function(){
                      _this.pan.$textarea.focus();
                 },100);
@@ -184,8 +188,16 @@
                 case 'showFontColorMenu':
                     _this.showFontColorMenu($a);
                     break;
+                case 'showStyleMenu':
+                    _this.showStyleMenu($a);
+                    break;
                 case 'setStyle':
                     _this.setStyle($a.attr('data-stylename'),$a.attr('data-stylevalue')||'');
+                    break;
+                case 'setPreStyle':
+                    _this.setPreStyle($a);
+                    break;
+                default:
                     break;
             }
         }
@@ -206,7 +218,22 @@
         //从编辑器保存到文本节点
         ,save:function(){
             var _this = this;
-            _this.$currP.html(_this.pan.$textarea.val());            
+            var val = _this.pan.$textarea.val();
+            if(val=='' && _this.$currP){
+                var tag = _this.$currP[0].tagName;
+                if(tag!='TD'&&tag!='TR'&&tag!='TH'){
+                    _this.$currP.remove();
+                    return;
+                }
+            }
+            if(val.indexOf('\n')>0){
+                var list = val.split('\n');
+                val = '';
+                for(var i=0;i<list.length;i++){
+                    val += '<p>'+list[i]+'</p>';
+                }
+            }
+            _this.$currP.html(val);            
         }
         ,showFontFamilyMenu : function($a){
             var _this = this;
@@ -257,6 +284,22 @@
             }
             _this.pan.$menuColor.show();
         }
+        ,showStyleMenu:function($a){
+            var _this = this;
+            if($a.hasClass('on')){
+                $a.removeClass('on');
+                _this.pan.$menuStyle.hide();
+                return;
+            }
+            _this.hideMenu();
+            $a.addClass('on');
+            //动态生成菜单
+            if(!_this.pan.$menuStyle){
+                var h = Html.getStyleMenu();
+                _this.pan.$menuStyle = $(h).appendTo(_this.pan.$editor);
+            }
+            _this.pan.$menuStyle.show();
+        }
         //设置文本样式
         ,setStyle:function(styleName,styleValue){
             var _this = this;
@@ -302,6 +345,17 @@
             }
             _this.hideMenu();
         }
+        ,setPreStyle:function($a){
+            var _this = this;
+            var style = $a.attr('style');
+            //同步更新文本框样式
+            _this.pan.$textarea.attr('style',style).focus();
+            if(_this.$currP){
+                //同步更新到节点
+                _this.$currP.attr('style',style);
+            }
+            _this.hideMenu();
+        }
         ,closeToolBar:function(){
             var _this = this;
             if(_this.pan.$toolbar){
@@ -330,7 +384,8 @@
             h += '<a href="#" data-action="showFontColorMenu"  class="editor-color editor-menu-btn">字色</a>';
             h += '<a href="#" data-action="setStyle" data-stylename="font-weight" class="editor-font-weight">加粗</a>';
             h += '<a href="#" data-action="setStyle" data-stylename="font-style" class="editor-font-style">斜体</a>';
-            h += '<a href="#" data-action="setStyle" data-stylename="text-decoration" class="editor-text-decoration">下划线</a>';
+            h += '<a href="#" data-action="setStyle" data-stylename="text-decoration" class="editor-text-decoration">下划线</a>';            
+            h += '<a href="#" data-action="showStyleMenu"  class="editor-style editor-menu-btn">预设</a>';
             h += '<a href="#" data-action="closeToolBar" class="editor-toolbar-close">></a>';
             h += '</div>';
             return h;
@@ -343,15 +398,31 @@
             });
             h += '</ul>';
             return h;
-        }    
+        }
+        ,getStyleMenu:function(){
+
+            var h = '<ul class="editor-menu editor-menu-style">';
+           
+                h += '<li><a href="#" data-action="setPreStyle" style="font-size:30px;text-align:center;display:block;" >标题1</a></li>';
+                h += '<li><a href="#" data-action="setPreStyle" style="font-size:24px;text-align:center;display:block;">标题2</a></li>';
+                h += '<li><a href="#" data-action="setPreStyle" style="font-size:20px;text-align:center;display:block;" >标题3</a></li>';
+                h += '<li><a href="#" data-action="setPreStyle" style="font-size:16px;text-align:center;display:block;">副标题1</a></li>';
+                h += '<li><a href="#" data-action="setPreStyle" style="font-size:16px;text-align:right;display:block;">副标题2</a></li>';
+                h += '<li><a href="#" data-action="setPreStyle" style="font-size:14px;">正文</a></li>';
+          
+            h += '</ul>';
+            return h;
+        }
     };
  
     //工具类
     var Tools = {
         //格式化文本，给游离的文本补上span标签
         parseHtml:function(html){
+            var br2span = '<span style="display:block;min-height:10px;"></span>';
             return $.trim(html)
                     .replace('< /','</').replace(/\n/g,'')
+                    .replace(/<br>/ig,br2span).replace(/<br\/>/ig,br2span).replace(/<br \/>/ig,br2span)
                     .replace(/>([^<]+)<([^/])/g,'><span>'+'$1</span><$2')
                     .replace(/<\/([\w]+)>([^<]+)<\//g,'</$1><span>$2</span></');
         }
