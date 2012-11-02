@@ -51,7 +51,7 @@
             if ($c.length == 0) {
                 return;
             }
-            _this.$contenter = $c;
+            _this.$contenter = $c.addClass('editor-contenter-css');
             _this.content = _this.opts.content!=null?_this.opts.content:$c.html();
             _this.content = Tools.parseHtml(_this.content);  
             _this.$contenter.html(_this.content);
@@ -233,7 +233,11 @@
                     val += '<p>'+list[i]+'</p>';
                 }
             }
-            _this.$currP.html(val);            
+            _this.$currP.html(val);    
+              //自动插入最后一行
+            if(_this.$contenter.children().last().html()!=""){
+                _this.$contenter.append('<p></p>');
+            }               
         }
         ,showFontFamilyMenu : function($a){
             var _this = this;
@@ -419,11 +423,11 @@
     var Tools = {
         //格式化文本，给游离的文本补上span标签
         parseHtml:function(html){
-            var br2span = '<span style="display:block;min-height:10px;"></span>';
+            var br2span = '<p></p>';
             return $.trim(html)
                     .replace('< /','</').replace(/\n/g,'')
                     .replace(/<br>/ig,br2span).replace(/<br\/>/ig,br2span).replace(/<br \/>/ig,br2span)
-                    .replace(/>([^<]+)<([^/])/g,'><span>'+'$1</span><$2')
+                    .replace(/>([\w]+[^<]+)<([^/])/g,'><span>'+'$1</span><$2')
                     .replace(/<\/([\w]+)>([^<]+)<\//g,'</$1><span>$2</span></');
         }
     };

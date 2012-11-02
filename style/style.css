@@ -16,3 +16,5 @@
 
 .editor-tb { table-layout: fixed; empty-cells: show; border-collapse: collapse; margin: 0 auto;width:100%; }
 .editor-tb th, .editor-tb td { border: 1px solid #ccc;height:20px; }
+.editor-contenter-css{}
+.editor-contenter-css p{min-height:15px;}
