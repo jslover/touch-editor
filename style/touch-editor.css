@@ -1,0 +1,20 @@
+﻿/*编辑器*/
+.editor-wrap { position: absolute; top: 50px; left: 5px; right: 5px; display: none; }
+/*文本框*/
+.editor-wrap textarea { width: 100%; height: 50px; padding: 0 5px; margin: 0; border: 1px solid #555; box-shadow: none; border-radius: 0; }
+.editor-wrap textarea:focus { box-shadow: none; outline: none; }
+/*工具栏*/
+.editor-wrap .editor-toolbar, .editor-wrap a.editor-toolbar-open { position: absolute; top: -30px; right: 0; width: 100%; background: rgba(0,0,0,0.7); height: 30px; }
+.editor-wrap .editor-toolbar a { display: inline-block; font-size: 14px; font-weight: normal; text-decoration: none; padding: 0 5px; height: 30p; line-height: 30px; margin-left: 4px; display: inline-block; color: #fff; }
+.editor-wrap .editor-toolbar a.on { background: #000; }
+.editor-wrap .editor-toolbar a.editor-toolbar-close { position: absolute; right: 5px; }
+.editor-wrap a.editor-toolbar-open { width: 30px; display: inline-block; font-size: 14px; font-weight: normal; text-decoration: none; text-align: center; line-height: 30px; color: #fff; }
+/*菜单*/
+.editor-wrap .editor-menu { position: absolute; top: 0; left: 0; width: 100%; background: #fff; z-index: 9999; margin: 0; padding: 0; }
+.editor-wrap .editor-menu li { list-style: none; margin: 0; padding: 0; }
+.editor-wrap .editor-menu li a { display: block; height: 40px; line-height: 40px; border-bottom: 1px solid #ccc; color: #555; font-size: 15px; text-decoration: none; font-weight: normal; padding-left: 20px; }
+
+.editor-tb { table-layout: fixed; empty-cells: show; border-collapse: collapse; margin: 0 auto;width:100%; }
+.editor-tb th, .editor-tb td { border: 1px solid #ccc;height:20px; }
+.editor-contenter-css{}
+.editor-contenter-css p{min-height:15px;}
