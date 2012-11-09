@@ -90,7 +90,7 @@
                      _this.pan.$textarea.focus();
                 },100);
                 //_this.pan.$textarea.css('height',|12).focus();
-                _this.pan.$editor.show().css('top',_this.$currP.offset().top);
+                _this.pan.$editor.show().css('top',_this.$currP.offset().top - _this.offsetTop);
                 _this.closeToolBar();
                 return false;
             });
@@ -102,8 +102,10 @@
         //初始化编辑器
         , initEditorBox: function () {
             var _this = this;
+            _this.$editorAppendTo = $(_this.opts.editorAppendTo);
+            _this.offsetTop = _this.$editorAppendTo.offset().top;
             var h = Html.getEditor();
-            _this.pan.$editor = $(h).appendTo($('body'));
+            _this.pan.$editor = $(h).appendTo($(_this.$editorAppendTo));
             _this.pan.$textarea = _this.pan.$editor.find('textarea');
             _this.initToolBar();
             _this.initAction();
@@ -433,8 +435,9 @@
     };
     //默认配置
     var defualts = {
+        editorAppendTo:'body'
         //默认需要编辑的文本区域
-        contentorSelector: '#divContent'
+        , contentorSelector: '#divContent'
         //默认填充文本，null表示从文本区域中自动获取
         , content: null
         , fontSize:[

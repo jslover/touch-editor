@@ -2,67 +2,66 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>PowerDoc</title>
+    <title>触屏版编辑器-touch-editor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, minimum-scale=1, user-scalable=no,target-densitydpi=medium-dpi">
+    <link href="http://jslover.github.com/style/main.css" rel="stylesheet" type="text/css" />
     <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-    <script src="script/touch-editor.js" type="text/javascript"></script>
+    <script src="http://jslover.github.com/script/common.js" type="text/javascript"></script>
+    <!--DEMO引用的组件样式和JS-->
     <link href="style/touch-editor.css" rel="stylesheet" type="text/css" />
+    <script src="script/touch-editor.js" type="text/javascript"></script>
 </head>
 <body>
-    <div data-role="page" data-fullscreen="true" id="">
-        <h1>
-            手机上的文本编辑器
-        </h1>
-        <div id="contenter" style="background: #fff; padding: 10px; border: 1px solid red;">
+    <div id="header">
+        <div class="wrap">
+            <h1>
+                触屏版编辑器</h1>
             <p>
-                <strong style="font-size: 30px; color: red; font-family: 幼圆;">文本编辑器DEMO1</strong></p>
-            <p>
-                <strong>【医护补助】</strong></p>
-            <table class="editor-tb">
-                <tr>
-                    <th>
-                        a
-                    </th>
-                    <th>
-                        b
-                    </th>
-                </tr>
-                <tr>
-                    <td>
-                        1
-                    </td>
-                    <td>
-                    </td>
-                </tr>
-            </table>
-            <p>
-                <strong>家人应帮助就诊看护管理</strong></p>
-            <p style="font-family: 楷体;">
-                今年8月，精神卫生法草案二次审议后，<br />全国人大法律委员会、法制工作委员会曾到北京、湖南、吉林调研。</p>
-            <p>
-                新京报记者 王姝</p>
-            <p align="right">
-                (原标题：综合性医疗机构应设精神科门诊)</p>
+                http://jslover.github.com/touch-editor/
+            </p>
+            <ul>
+                <li><a href="http://jslover.github.com">返回首页</a></li>
+                <li><a href="https://github.com/jslover/touch-editor">下载源码</a></li>
+            </ul>
         </div>
-        <br />
-        <div id="contenterDemo2" style="background: #fff; padding: 10px; maring-top: 20px;
-            border: 1px solid red;">
-            <p>
-                <strong style="font-size: 30px; color: red; font-family: 幼圆;">文本编辑器DEMO2</strong></p>
-            <p>
-                <span>谁有权力把人送到</span><span class="style1"><strong>精神病院</strong></span><span>？</span><em>谁有资格判定</em><span
-                    class="style3">一个人是</span><span>不是精神病患者？</span></p>
-            <p>
-                <span>对于“强行收治”、“</span><span class="style2">非自愿入院</span><span style="color: blue;">”等争议多年的焦点议题，三审稿保留了一审稿</span></p>
-            <p>
-                <span>对于精神障碍的复诊鉴定，</span><span class="style4" style="font-family: 幼圆; font-size: 24px;">草案一审稿曾规定</span><span>，患者、监护人如果对复诊结论有异议</span></p>
+    </div>
+    <div id="contenter">
+        <div class="wrap">
+            <br />
+            <h3>
+                demo1:默认</h3>
+            <div class="demo" style="height: auto">
+                <script>
+                    $(function () {
+                        var editor = new $.TouchEditor({
+                            contentorSelector: '#articleContenter'
+                         , editorAppendTo: '.demo'
+                        });
+                    });        
+                </script>
+                <div id="articleContenter" style="background: #fff; padding: 10px;">
+                    <p>
+                        <strong style="font-size: 30px; color: red; font-family: 幼圆;">文本编辑器DEMO</strong></p>
+                    <p>
+                        <strong>【医护补助】</strong></p>                 
+                    <p>
+                        <strong>家人应帮助就诊看护管理</strong></p>
+                    <p>
+                        新京报记者 王姝</p>
+                    <p align="right">
+                        (原标题：综合性医疗机构应设精神科门诊)</p>
+                </div>
+            </div>
+            <br />
         </div>
-        <script>
-            $(document).ready(function () {
-                var editor = new $.TouchEditor({ contentorSelector: '#contenter' });
-                var editor2 = new $.TouchEditor({ contentorSelector: '#contenterDemo2' });
-            });
-        </script>
+    </div>
+    <div id="footer">
+        <div class="wrap">
+            <p>
+                <a href="http://jslover.com">http://jslover.com</a></p>
+            <p>
+                <a href="http://jslover.github.com">http://jslover.github.com</a></p>
+        </div>
     </div>
 </body>
 </html>
